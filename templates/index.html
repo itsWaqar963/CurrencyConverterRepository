@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #F5F6FA; margin: 50px; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; max-width: 400px; margin: auto; box-shadow: 0 2px 8px #ccc; }
+        input, select { width: 100%; padding: 8px; margin: 8px 0; }
+        button { background: #0984e3; color: #fff; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; }
+        .result { margin-top: 20px; font-size: 1.2em; color: #00b894; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Currency Converter</h2>
+        <form method="post">
+            <label>Amount:</label>
+            <input type="number" step="any" name="amount" value="{{ amount }}" required>
+
+            <label>From:</label>
+            <select name="from_currency">
+                {% for cur in currencies %}
+                <option value="{{ cur }}" {% if cur == from_currency %}selected{% endif %}>{{ cur }}</option>
+                {% endfor %}
+            </select>
+
+            <label>To:</label>
+            <select name="to_currency">
+                {% for cur in currencies %}
+                <option value="{{ cur }}" {% if cur == to_currency %}selected{% endif %}>{{ cur }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Convert</button>
+        </form>
+        {% if result is not none %}
+        <div class="result">
+            {{ amount }} {{ from_currency }} = {{ '%.2f' % result }} {{ to_currency }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
